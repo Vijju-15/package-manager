@@ -5,10 +5,10 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up virtual environment and installing dependencies...'
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
+                bat '''
+                    python -m venv venv
+                    call venv\\Scripts\\activate
+                    python -m pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
             }
@@ -17,8 +17,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running Python script...'
-                sh '''
-                    . venv/bin/activate
+                bat '''
+                    call venv\\Scripts\\activate
                     python app.py
                 '''
             }
